@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import os, platform
 from optparse import OptionParser
 from MultiLipsum.core import MultiLipsum
 
@@ -21,4 +22,9 @@ else:
   ml = MultiLipsum(options.topic)
 
 method = getattr(ml, "get_%s" % options.format)
-print method(options.number)
+out = method(options.number)
+
+if platform.system() in "Darwin":
+  os.system("echo '%s' | pbcopy" % out)
+  
+print out

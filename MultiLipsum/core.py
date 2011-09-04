@@ -33,7 +33,7 @@ class MultiLipsum:
     Return 'number' of words
     """
     self.shuffle()
-    return " ".join(self.words[:number])
+    return " ".join(self.words[:number]).rstrip()
     
   def get_sentences(self, number):
     """
@@ -43,7 +43,7 @@ class MultiLipsum:
     sentences = ""
     for x in range(number):
       sentences += "%s. " % self.get_words(length).capitalize()
-    return sentences
+    return sentences.rstrip()
 
   def get_paragraphs(self, number):
     """
@@ -54,7 +54,7 @@ class MultiLipsum:
     paragraphs = ""
     for x in range(number):
       paragraphs += "%s\n\n" % self.get_sentences(length)
-    return paragraphs
+    return paragraphs.rstrip()
       
       
 def main():
