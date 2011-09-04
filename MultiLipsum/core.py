@@ -8,18 +8,20 @@ Created by Giovanni Collazo on 2011-09-03.
 
 import random
 import json
+import os
 
 class MultiLipsum:
   
   def __init__(self, filename=None):
+    self.project_path = os.sep.join(os.path.realpath(os.path.dirname(__file__)).split('/')[:-1])
     lipsum = self.load('lipsum')
     if filename is not None:
       self.words = lipsum + self.load(filename)
     else:
-      self.words = self.lipsum
+      self.words = lipsum
   
   def load(self, filename):
-    f = open('text/%s.json' % filename)
+    f = open('%s/text/%s.json' % (self.project_path, filename))
     return json.loads(f.read())
     
   def shuffle(self):
@@ -56,23 +58,8 @@ class MultiLipsum:
       
       
 def main():
-  ml = MultiLipsum('design')
-  
-  # Words
-  print "Words:"
-  print ml.get_words(10)
-  
-  print
-  
-  # Sentences
-  print "Senteces:"
-  print ml.get_sentences(3)
-  
-  print
-  
-  # Paragraphs
-  print "Paragraphs:"
-  print ml.get_paragraphs(3)
+  ml = MultiLipsum()
+  print ml.get_paragraphs(1)
 
 if __name__ == '__main__':
   main()
